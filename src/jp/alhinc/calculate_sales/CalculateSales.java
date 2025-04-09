@@ -39,23 +39,25 @@ public class CalculateSales {
 		}
 
 		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
-		File[] files = new File("files[i].getName()").listFiles();
+		File[] files = new File(args[0]).listFiles();
 
 		List<File> rcdFiles = new ArrayList<>();
 
 		for(int i = 0; i < files.length ; i++) {
 
-			if(File.matches("[0-9]{8}")) {
+
+			if(files[i].getName().matches("^[0-9]{8}.rcd$")) {
 				rcdFiles.add(files[i]);
+			}
 		}
 	}
 
 		// 支店別集計ファイル書き込み処理
-		if(!writeFile(args[0], FILE_NAME_BRANCH_OUT, branchNames, branchSales)) {
-			return;
-		}
+//		if(!writeFile(args[0], FILE_NAME_BRANCH_OUT, branchNames, branchSales)) {
+//			return;
+//		}
 
-	}
+
 
 	/**
 	 * 支店定義ファイル読み込み処理
