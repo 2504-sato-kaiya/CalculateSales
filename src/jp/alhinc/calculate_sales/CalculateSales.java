@@ -31,8 +31,8 @@ public class CalculateSales {
 	 *
 	 * @param コマンドライン引数
 	 */
-	public static void
-	(String[] args) {
+	public static void main(String[] args) {
+
 		// 支店コードと支店名を保持するMap
 		Map<String, String> branchNames = new HashMap<>();
 		// 支店コードと売上金額を保持するMap
@@ -55,6 +55,9 @@ public class CalculateSales {
 				//rcdFiles(ファイル名の情報)にfiles[i](ファイル名1つずつ)を追加(add)
 				rcdFiles.add(files[i]);
 			}
+		}
+
+		for(int i = 0; i < rcdFiles.size(); i++) {
 
 			BufferedReader br = null;
 
@@ -70,13 +73,13 @@ public class CalculateSales {
 				while((line = br.readLine()) != null) {
 					//listにline(支店コードと売上金額)を追加(add)
 					list.add(line);
+				}
 				//fileSaleにlist(売上金額)をLong(整数)に変換した値を追加(parseLong)
 				long fileSale = Long.parseLong(list.get(1));
 				//salesAmountに売上金額を入れたMap(branchSales)とfileSale(売上金額)を加算
 				Long salesAmount = branchSales.get(list.get(0)) + fileSale;
 				//branchSalesに支店コード(list.get(0))と売上金額(salesAmount)を追加(put)
 				branchSales.put(list.get(0),salesAmount);
-				}
 
 			} catch(IOException e) {
 				System.out.println(UNKNOWN_ERROR);
@@ -94,12 +97,13 @@ public class CalculateSales {
 				}
 			}
 		}
-	}
+
 
 		// 支店別集計ファイル書き込み処理
-//		if(!writeFile(args[0], FILE_NAME_BRANCH_OUT, branchNames, branchSales)) {
-//			return;
-//		}
+		if(!writeFile(args[0], FILE_NAME_BRANCH_OUT, branchNames, branchSales)) {
+			return;
+		}
+	}
 
 
 
@@ -167,21 +171,12 @@ public class CalculateSales {
 			bw = new BufferedWriter(fw);
 
 			//keyにMap(売上集計データ)の一覧を取得してkeyの数分繰り返す(KeySet)
-			for (String key : branchNames.get(0).keySet()) {
-				bw.write(key);
+			for (String key : branchNames.keySet()) {
+				//支店別集計ファイルにkey(支店名)+branchNames(1)(支店名)+branchSales(1)(合計金額)を書き込む
+				bw.write(key + "," + branchNames.get(key) + "," + branchSales.get(key));
+				//支店別集計ファイルに改行を書き込む
 				bw.newLine();
-				bw.write(key);
-				bw.newLine();
-				bw.write(key);
-				bw.newLine();
-
-
-
-
 			}
-				//keyという変数には、Mapから取得したキーが代入されています。
-				//拡張for⽂で繰り返されているので、1つ⽬のキーが取得できたら、
-				//2つ⽬の取得...といったように、次々とkeyという変数に上書きされていきます。
 		}catch(IOException e) {
 			System.out.println(UNKNOWN_ERROR);
 			return false;
@@ -200,9 +195,9 @@ public class CalculateSales {
 		return true;
 
 
-			String line;
 
-		return true;
+
+
 	}
 
 }
