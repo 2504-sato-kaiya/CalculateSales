@@ -106,7 +106,6 @@ public class CalculateSales {
 	}
 
 
-
 	/**
 	 * 支店定義ファイル読み込み処理
 	 *
@@ -131,10 +130,10 @@ public class CalculateSales {
 				branchNames.put(items[0], items[1]);
 				branchSales.put(items[0], 0L);
 				// ※ここの読み込み処理を変更してください。(処理内容1-2)
-				System.out.println(line);
 			}
 
 		} catch(IOException e) {
+
 			System.out.println(UNKNOWN_ERROR);
 			return false;
 		} finally {
@@ -193,10 +192,6 @@ public class CalculateSales {
 			}
 		}
 		return true;
-
-
-
-
 
 	}
 
