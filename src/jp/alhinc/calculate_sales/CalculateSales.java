@@ -135,7 +135,8 @@ public class CalculateSales {
 					}
 
 					//list.get(1)(売上金額)が数字でないか判定(matches("[0-9]"))
-					if(!list.get(1).matches("[0-9]")) {
+					if(!list.get(1).matches("[0-9]+$")) {
+
 						//UNKNOWN_ERROR(予期せぬエラーが発生しました)を出力
 						System.out.println(UNKNOWN_ERROR);
 						return;
